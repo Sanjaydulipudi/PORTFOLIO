@@ -22,7 +22,7 @@ const ICONS = {
   mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
   phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.6 10.8a15.9 15.9 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.5-.4c1 .3 2.1.5 3.2.5a1.5 1.5 0 0 1 1.5 1.5V20a1.5 1.5 0 0 1-1.5 1.5C10.6 21.5 2.5 13.4 2.5 3.5A1.5 1.5 0 0 1 4 2h3.2a1.5 1.5 0 0 1 1.5 1.5c0 1.1.2 2.2.5 3.2a1.5 1.5 0 0 1-.4 1.5Z"/></svg>',
   pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-7.4 7-12.5A7 7 0 0 0 5 9.5C5 14.6 12 22 12 22Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
-  linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.5 8.5h6.9V21H3.5V8.5Zm7-.4 6.5-.02c5.6 0 6.5 3.6 6.5 8.3V21H17V17c0-2.6-.05-6-3.6-6-3.6 0-4.14 2.8-4.14 5.7V21H3.5V8.1h6.5Z"/></svg>',
+  linkedin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <rect x="3" y="3" width="18" height="18" rx="2"></rect> <path d="M8 10v7"></path> <circle cx="8" cy="7" r="1"></circle> <path d="M12 10v7"></path> <path d="M12 13c0-2 1.5-3 3.2-3 1.8 0 2.8 1.2 2.8 3v4"></path> </svg>`,
   github: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.5c.5.1.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.9.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.9-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.94.36.31.68.92.68 1.85V21c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>',
   download: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>',
   arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>',
@@ -115,29 +115,7 @@ function renderHeroSocialCards() {
 
   container.innerHTML = portfolioData.socials
     .filter(s => s.url)
-    .map(s => {
-
-      let value = "";
-
-      switch (s.name) {
-
-        case "LinkedIn":
-          value = "laashmithsanjay2005";
-          break;
-
-        case "GitHub":
-          value = "Sanjaydulipudi";
-          break;
-
-        case "Email":
-          value = "sanjaydulipudi@gmail.com";
-          break;
-
-        default:
-          value = "";
-      }
-
-      return `
+    .map(s => `
 
 <a class="hero-social-card glass-panel"
    href="${s.url}"
@@ -148,24 +126,13 @@ function renderHeroSocialCards() {
         ${ICONS[s.icon] || ""}
     </div>
 
-    <div class="hero-social-card__content">
-
-        <div class="hero-social-card__title">
-            ${s.name}
-        </div>
-
-        <div class="hero-social-card__value">
-            ${value}
-        </div>
-
-    </div>
+    <span class="hero-social-card__title">
+        ${s.name}
+    </span>
 
 </a>
 
-      `;
-
-    })
-    .join("");
+`).join("");
 
 }
 
