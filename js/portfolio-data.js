@@ -48,7 +48,7 @@ const portfolioData = {
     firstName: "Laashmith",
     initials: "LS",
     role: "Electronics & Communication Engineer",
-    tagline: "From transistors to timing closure — I design and verify the silicon building blocks inside tomorrow's chips.",
+    tagline: "Aspiring VLSI Design Engineer with practical experience in RTL development, CMOS circuit design, physical design and digital verification.",
     summary:
       "Electronics and Communication Engineering graduate with a strong foundation in digital electronics, CMOS fundamentals and VLSI design principles. Hands-on experience in circuit design, simulation and Verilog-based digital system development, backed by practical exposure to industry-standard EDA tools. Looking to contribute to the electronics and semiconductor industry.",
     location: "Guntur, India",

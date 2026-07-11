@@ -82,10 +82,51 @@ function renderHero() {
     )
     .join("");
 
-  renderSocialRow("hero-socials");
   renderSocialRow("footer-socials");
+  function renderHeroSocialCards() {
+
+    const container = document.getElementById("hero-social-cards");
+
+    container.innerHTML = portfolioData.socials
+      .filter(s => s.url)
+      .map(s => `
+
+<a class="hero-social-card glass-panel"
+   href="${s.url}"
+   target="_blank"
+   rel="noopener">
+
+    <div class="hero-social-card__icon">
+        ${ICONS[s.icon]}
+    </div>
+
+    <div>
+
+        <div class="hero-social-card__title">
+            ${s.name}
+        </div>
+
+        <div class="hero-social-card__value">
+
+            ${s.name === "LinkedIn"
+          ? "laashmithsanjay2005"
+          : s.name === "GitHub"
+            ? "Sanjaydulipudi"
+            : "sanjaydulipudi@gmail.com"
+        }
+
+        </div>
+
+    </div>
+
+</a>
+
+`).join("");
+
+  }
   renderChipBadges();
 }
+
 
 /* If personal.photo is set in portfolio-data.js, replace the initials
    monogram in the hero chip with an actual photo. Leaving photo empty
@@ -400,6 +441,8 @@ document.addEventListener("DOMContentLoaded", () => {
   renderNavigation();
   renderResumeButtons();
   renderHero();
+  renderHeroSocialCards();
+  renderChipBadges();
   renderAbout();
   renderEducation();
   renderExperience();
