@@ -1,0 +1,105 @@
+/* ============================================================================
+   DESIGN TOKENS  (variables.css)
+   ============================================================================
+   This file is the control panel for the whole look of the site.
+   Change a value here and it updates everywhere that value is used.
+
+   You will almost never need to open style.css just to re-theme the page —
+   start here first.
+============================================================================ */
+
+:root {
+
+  /* ----------------------------------------------------------------------
+     1. COLORS
+     A warm, light "circuit board" palette: a soft paper-white base, a
+     signal-orange accent (used sparingly — CTAs and highlights) and a
+     circuit-green secondary accent (tags, hovers, trace lines). Two soft
+     gradient blobs of these colors sit behind the page so the glass
+     panels have real color to catch and refract — glassmorphism looks
+     flat on plain white without that.
+     Change these values to re-theme the entire site.
+  ---------------------------------------------------------------------- */
+  --color-bg: #faf9f6;              /* page background — warm paper white */
+  --color-bg-alt: #f3f1ea;          /* alternating section background */
+  --color-bg-elevated: #ffffff;     /* raised panels, header when scrolled */
+
+  --color-accent: #ff7a33;          /* primary accent — "signal" orange */
+  --color-accent-rgb: 255, 122, 51;
+  --color-accent-2: #1f9d6b;        /* secondary accent — "circuit" green */
+  --color-accent-2-rgb: 31, 157, 107;
+
+  --color-ink: #14201c;             /* near-black used on top of accent fills */
+  --color-text: #16211c;            /* primary text */
+  --color-text-muted: #52605a;      /* secondary / supporting text */
+  --color-text-faint: #8b978f;      /* captions, timestamps, fine print */
+
+  /* Glassmorphism surfaces: translucent white layered over the warm
+     background and its color blobs, so panels stay legible but still
+     let the color underneath bleed through. */
+  --color-glass-fill: rgba(255, 255, 255, 0.5);
+  --color-glass-fill-hover: rgba(255, 255, 255, 0.72);
+  --color-glass-border: rgba(20, 32, 28, 0.09);
+  --color-glass-border-strong: rgba(20, 32, 28, 0.18);
+
+  --color-header-bg: rgba(250, 249, 246, 0.75);
+  --color-mobile-nav-bg: rgba(255, 255, 255, 0.96);
+
+  /* ----------------------------------------------------------------------
+     2. FONTS
+     - Display: headings & the hero name (Sora — geometric, technical)
+     - Body: paragraphs, nav links, buttons (Inter — readable at small sizes)
+     - Mono: labels, dates, tags (JetBrains Mono — schematic / datasheet feel)
+  ---------------------------------------------------------------------- */
+  --font-display: "Sora", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+
+  --fs-hero: clamp(2.4rem, 3rem + 3vw, 4.6rem);
+  --fs-h2: clamp(1.7rem, 1.4rem + 1.6vw, 2.6rem);
+  --fs-h3: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --fs-lead: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-mono: 0.8rem;
+
+  /* ----------------------------------------------------------------------
+     3. SPACING
+  ---------------------------------------------------------------------- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 9rem;
+
+  /* ----------------------------------------------------------------------
+     4. SHAPE — radius, blur, shadows, borders
+  ---------------------------------------------------------------------- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --blur-glass: 20px;
+
+  --shadow-glass: 0 8px 32px rgba(20, 32, 28, 0.09);
+  --shadow-glow-accent: 0 0 40px rgba(var(--color-accent-rgb), 0.28);
+  --shadow-glow-accent-2: 0 0 40px rgba(var(--color-accent-2-rgb), 0.22);
+
+  /* ----------------------------------------------------------------------
+     5. MOTION
+  ---------------------------------------------------------------------- */
+  --transition-fast: 160ms ease;
+  --transition-base: 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 600ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ----------------------------------------------------------------------
+     6. LAYOUT
+  ---------------------------------------------------------------------- */
+  --container-width: 1180px;
+  --header-height: 76px;
+}
