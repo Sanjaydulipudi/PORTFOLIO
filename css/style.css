@@ -32,7 +32,9 @@
    1. RESET & BASE
    A minimal reset so the browser's default spacing doesn't fight us.
 ---------------------------------------------------------------------- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -55,7 +57,8 @@ body {
   overflow-x: hidden;
 }
 
-img, svg {
+img,
+svg {
   display: block;
   max-width: 100%;
 }
@@ -65,12 +68,15 @@ a {
   text-decoration: none;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
   padding: 0;
 }
 
-button, input, textarea {
+button,
+input,
+textarea {
   font: inherit;
   color: inherit;
   background: none;
@@ -98,7 +104,10 @@ body::before {
 /* ----------------------------------------------------------------------
    2. TYPOGRAPHY
 ---------------------------------------------------------------------- */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-display);
   font-weight: 600;
   line-height: 1.15;
@@ -327,12 +336,36 @@ h1, h2, h3, h4 {
 }
 
 .nav__link {
-  font-size: var(--fs-small);
-  font-weight: 500;
-  color: var(--color-text-muted);
   position: relative;
-  padding-block: 0.3em;
-  transition: color var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 22px;
+
+  border-radius: 18px;
+
+  color: var(--color-text);
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255, 255, 255, 0.30);
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
 }
 
 .nav__link::after {
@@ -346,9 +379,16 @@ h1, h2, h3, h4 {
   transition: width var(--transition-base);
 }
 
-.nav__link:hover,
-.nav__link--active {
-  color: var(--color-text);
+.nav__link:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 255, 255, 0.28);
+
+  border-color: rgba(255, 122, 51, .45);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, .12),
+    0 0 18px rgba(255, 122, 51, .18);
 }
 
 .nav__link:hover::after,
@@ -550,8 +590,13 @@ h1, h2, h3, h4 {
   background-image: repeating-linear-gradient(90deg, var(--color-accent) 0 3px, transparent 3px 14px);
 }
 
-.chip-diagram__pins--top { top: calc(28% - 14px); }
-.chip-diagram__pins--bottom { bottom: calc(28% - 14px); }
+.chip-diagram__pins--top {
+  top: calc(28% - 14px);
+}
+
+.chip-diagram__pins--bottom {
+  bottom: calc(28% - 14px);
+}
 
 .chip-diagram__pins--left,
 .chip-diagram__pins--right {
@@ -561,8 +606,13 @@ h1, h2, h3, h4 {
   background-image: repeating-linear-gradient(180deg, var(--color-accent-2) 0 3px, transparent 3px 14px);
 }
 
-.chip-diagram__pins--left { left: calc(28% - 14px); }
-.chip-diagram__pins--right { right: calc(28% - 14px); }
+.chip-diagram__pins--left {
+  left: calc(28% - 14px);
+}
+
+.chip-diagram__pins--right {
+  right: calc(28% - 14px);
+}
 
 .chip-diagram__badges {
   position: absolute;
@@ -579,10 +629,29 @@ h1, h2, h3, h4 {
   animation: floatBadge 6s ease-in-out infinite;
 }
 
-.chip-diagram__badge--1 { top: 2%;  left: 0%;  animation-delay: 0s; }
-.chip-diagram__badge--2 { top: 6%;  right: 0%; animation-delay: 1.2s; }
-.chip-diagram__badge--3 { bottom: 4%; left: 2%; animation-delay: 2.4s; }
-.chip-diagram__badge--4 { bottom: 0%; right: 4%; animation-delay: 3.6s; }
+.chip-diagram__badge--1 {
+  top: 2%;
+  left: 0%;
+  animation-delay: 0s;
+}
+
+.chip-diagram__badge--2 {
+  top: 6%;
+  right: 0%;
+  animation-delay: 1.2s;
+}
+
+.chip-diagram__badge--3 {
+  bottom: 4%;
+  left: 2%;
+  animation-delay: 2.4s;
+}
+
+.chip-diagram__badge--4 {
+  bottom: 0%;
+  right: 4%;
+  animation-delay: 3.6s;
+}
 
 .scroll-cue {
   position: absolute;
@@ -1040,32 +1109,62 @@ h1, h2, h3, h4 {
    Used on: .chip-diagram__die
    Disable by removing the `animation` line in that rule above. */
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: var(--shadow-glass); }
-  50% { box-shadow: var(--shadow-glass), var(--shadow-glow-accent); }
+
+  0%,
+  100% {
+    box-shadow: var(--shadow-glass);
+  }
+
+  50% {
+    box-shadow: var(--shadow-glass), var(--shadow-glow-accent);
+  }
 }
 
 /* floatBadge — a gentle up/down drift for the labels orbiting the hero
    chip, so the hero feels alive without being distracting.
    Used on: .chip-diagram__badge */
 @keyframes floatBadge {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 /* scrollCue — the dot bouncing inside the "scroll down" pill in the hero.
    Used on: .scroll-cue span */
 @keyframes scrollCue {
-  0% { transform: translateY(0); opacity: 1; }
-  70% { transform: translateY(16px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 0; }
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
 }
 
 /* traceDraw — makes the background circuit-trace lines look like they
    are being drawn in when the page loads.
    Used on: .hero__traces .trace */
 @keyframes traceDraw {
-  from { stroke-dashoffset: 400; }
-  to { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 400;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .hero__traces .trace {
@@ -1117,7 +1216,10 @@ h1, h2, h3, h4 {
   html {
     scroll-behavior: auto;
   }
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
@@ -1202,9 +1304,11 @@ h1, h2, h3, h4 {
   .nav-toggle--active .nav-toggle__bar:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
   }
+
   .nav-toggle--active .nav-toggle__bar:nth-child(2) {
     opacity: 0;
   }
+
   .nav-toggle--active .nav-toggle__bar:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
   }

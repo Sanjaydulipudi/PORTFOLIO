@@ -50,7 +50,7 @@ const portfolioData = {
     role: "Electronics & Communication Engineer",
     tagline: "From transistors to timing closure — I design and verify the silicon building blocks inside tomorrow's chips.",
     summary:
-      "Electronics and Communication Engineering graduate with a strong foundation in digital electronics, CMOS fundamentals and VLSI design principles. Hands-on experience in circuit design, simulation and Verilog-based digital system development, backed by practical exposure to industry-standard EDA tools. Looking to contribute to the electronics and semiconductor industry, with a longer-term goal of pursuing a Master's degree in Germany focused on VLSI / microelectronics.",
+      "Electronics and Communication Engineering graduate with a strong foundation in digital electronics, CMOS fundamentals and VLSI design principles. Hands-on experience in circuit design, simulation and Verilog-based digital system development, backed by practical exposure to industry-standard EDA tools. Looking to contribute to the electronics and semiconductor industry.",
     location: "Guntur, India",
     email: "sanjaydulipudi@gmail.com",
     phone: "+91 83410 17777",
@@ -64,7 +64,7 @@ const portfolioData = {
        chip instead of a photo. To use a real photo:
          1. Add your image to the images/ folder, e.g. images/profile.jpg
          2. Change the line below to: photo: "images/profile.jpg" */
-    photo: "",
+    photo: "NEW_PIC.jpg",
   },
 
   /* ---------------------------------------------------------------------

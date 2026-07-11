@@ -62,7 +62,8 @@ function renderResumeButtons() {
 function renderHero() {
   const p = portfolioData.personal;
   document.getElementById("hero-role").textContent = p.role;
-  document.getElementById("hero-name").textContent = p.fullName;
+  document.getElementById("hero-name").innerHTML =
+    p.fullName.replace("Dulipudi ", "DULIPUDI<br>LAASHMITH SANJAY");
   document.getElementById("hero-tagline").textContent = p.tagline;
   document.getElementById("logo-initials").textContent = p.initials;
   document.getElementById("chip-initials").textContent = p.initials;
@@ -187,10 +188,9 @@ function renderProjects() {
         <ul class="tag-list tag-list--small">
           ${proj.tags.map((t) => `<li class="tag tag--outline">${t}</li>`).join("")}
         </ul>
-        ${
-          proj.link
-            ? `<a href="${proj.link}" class="project-card__link" target="_blank" rel="noopener">View project ${ICONS.arrow}</a>`
-            : ""
+        ${proj.link
+          ? `<a href="${proj.link}" class="project-card__link" target="_blank" rel="noopener">View project ${ICONS.arrow}</a>`
+          : ""
         }
       </article>`
     )
@@ -228,11 +228,10 @@ function renderContact() {
   el.innerHTML = cards
     .map((c) => {
       const inner = `<span class="contact-card__icon">${ICONS[c.icon]}</span><span><span class="contact-card__label">${c.label}</span><span class="contact-card__value">${c.value}</span></span>`;
-      return `<li>${
-        c.href
-          ? `<a class="contact-card glass-panel" href="${c.href}">${inner}</a>`
-          : `<div class="contact-card glass-panel">${inner}</div>`
-      }</li>`;
+      return `<li>${c.href
+        ? `<a class="contact-card glass-panel" href="${c.href}">${inner}</a>`
+        : `<div class="contact-card glass-panel">${inner}</div>`
+        }</li>`;
     })
     .join("");
 }
