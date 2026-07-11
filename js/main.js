@@ -60,36 +60,84 @@ function renderResumeButtons() {
 }
 
 function renderHero() {
+
   const p = portfolioData.personal;
+
   document.getElementById("hero-role").textContent = p.role;
+
   const name = p.fullName.split(" ");
 
   document.getElementById("hero-name").innerHTML = `
     <span>${name[0].toUpperCase()}</span>
     <span>${name.slice(1).join(" ").toUpperCase()}</span>
-`;
+  `;
+
   document.getElementById("hero-tagline").textContent = p.tagline;
+
   document.getElementById("logo-initials").textContent = p.initials;
   document.getElementById("chip-initials").textContent = p.initials;
   document.getElementById("footer-initials").textContent = p.initials;
+
   renderChipPhotoOrInitials();
-  document.getElementById("footer-tagline").textContent = `${p.role} — VLSI & Digital Design`;
+
+  document.getElementById("footer-tagline").textContent =
+    `${p.role} — VLSI & Digital Design`;
 
   const highlightsList = document.getElementById("hero-highlights");
+
   highlightsList.innerHTML = portfolioData.highlights
     .map(
-      (h) => `<li class="chip"><span class="chip__value">${h.value}</span><span class="chip__label">${h.label}</span></li>`
+      h => `
+      <li class="chip">
+        <span class="chip__value">${h.value}</span>
+        <span class="chip__label">${h.label}</span>
+      </li>
+    `
     )
     .join("");
 
+  // Hero floating tags
+  renderChipBadges();
+
+  // NEW Hero social cards
+  renderHeroSocialCards();
+
+  // Footer icons
   renderSocialRow("footer-socials");
-  function renderHeroSocialCards() {
 
-    const container = document.getElementById("hero-social-cards");
+}
 
-    container.innerHTML = portfolioData.socials
-      .filter(s => s.url)
-      .map(s => `
+function renderHeroSocialCards() {
+
+  const container = document.getElementById("hero-social-cards");
+
+  if (!container) return;
+
+  container.innerHTML = portfolioData.socials
+    .filter(s => s.url)
+    .map(s => {
+
+      let value = "";
+
+      switch (s.name) {
+
+        case "LinkedIn":
+          value = "laashmithsanjay2005";
+          break;
+
+        case "GitHub":
+          value = "Sanjaydulipudi";
+          break;
+
+        case "Email":
+          value = "sanjaydulipudi@gmail.com";
+          break;
+
+        default:
+          value = "";
+      }
+
+      return `
 
 <a class="hero-social-card glass-panel"
    href="${s.url}"
@@ -97,36 +145,29 @@ function renderHero() {
    rel="noopener">
 
     <div class="hero-social-card__icon">
-        ${ICONS[s.icon]}
+        ${ICONS[s.icon] || ""}
     </div>
 
-    <div>
+    <div class="hero-social-card__content">
 
         <div class="hero-social-card__title">
             ${s.name}
         </div>
 
         <div class="hero-social-card__value">
-
-            ${s.name === "LinkedIn"
-          ? "laashmithsanjay2005"
-          : s.name === "GitHub"
-            ? "Sanjaydulipudi"
-            : "sanjaydulipudi@gmail.com"
-        }
-
+            ${value}
         </div>
 
     </div>
 
 </a>
 
-`).join("");
+      `;
 
-  }
-  renderChipBadges();
+    })
+    .join("");
+
 }
-
 
 /* If personal.photo is set in portfolio-data.js, replace the initials
    monogram in the hero chip with an actual photo. Leaving photo empty
