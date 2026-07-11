@@ -62,8 +62,12 @@ function renderResumeButtons() {
 function renderHero() {
   const p = portfolioData.personal;
   document.getElementById("hero-role").textContent = p.role;
-  document.getElementById("hero-name").innerHTML =
-    p.fullName.replace("Dulipudi ", "");
+  const name = p.fullName.split(" ");
+
+  document.getElementById("hero-name").innerHTML = `
+    <span>${name[0].toUpperCase()}</span>
+    <span>${name.slice(1).join(" ").toUpperCase()}</span>
+`;
   document.getElementById("hero-tagline").textContent = p.tagline;
   document.getElementById("logo-initials").textContent = p.initials;
   document.getElementById("chip-initials").textContent = p.initials;
