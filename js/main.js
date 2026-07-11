@@ -63,7 +63,7 @@ function renderHero() {
   const p = portfolioData.personal;
   document.getElementById("hero-role").textContent = p.role;
   document.getElementById("hero-name").innerHTML =
-    p.fullName.replace("Dulipudi ", "DULIPUDI<br>LAASHMITH SANJAY");
+    p.fullName.replace("Dulipudi ", "");
   document.getElementById("hero-tagline").textContent = p.tagline;
   document.getElementById("logo-initials").textContent = p.initials;
   document.getElementById("chip-initials").textContent = p.initials;
