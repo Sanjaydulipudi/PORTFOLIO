@@ -273,18 +273,42 @@ function initializeMobileMenu() {
 /* Adds a subtle background to the header once the page has scrolled
    past the hero, so nav text stays readable over any section. */
 function initializeHeaderScrollState() {
+
   const header = document.getElementById("site-header");
-  const onScroll = () => {
-    header.classList.toggle("site-header--scrolled", window.scrollY > 40);
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+
+  let lastScroll = 0;
+
+  window.addEventListener("scroll", () => {
+
+    const current = window.pageYOffset;
+
+    header.classList.toggle(
+      "site-header--scrolled",
+      current > 40
+    );
+
+    if (current > lastScroll && current > 120) {
+
+      header.classList.add("site-header--hidden");
+
+    } else {
+
+      header.classList.remove("site-header--hidden");
+
+    }
+
+    lastScroll = current;
+
+  }, { passive: true });
+
 }
 
 /* Fades + slides each major block into view the first time it enters
    the viewport. Respects users who have asked for reduced motion. */
 function initializeScrollReveal() {
+
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   const revealTargets = document.querySelectorAll(
     ".section, .hero__content, .hero__visual, .project-card, .workflow__step, .education-card, .timeline__item, .skills-panel"
   );
@@ -296,22 +320,37 @@ function initializeScrollReveal() {
 
   const observer = new IntersectionObserver(
     (entries) => {
+
       entries.forEach((entry) => {
+
         if (entry.isIntersecting) {
+
           entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+
+        } else {
+
+          entry.target.classList.remove("is-visible");
+
         }
+
       });
+
     },
-    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    {
+      threshold: 0.15,
+      rootMargin: "0px"
+    }
   );
 
   revealTargets.forEach((el) => {
-    el.classList.add("reveal");
-    observer.observe(el);
-  });
-}
 
+    el.classList.add("reveal");
+
+    observer.observe(el);
+
+  });
+
+}
 /* Highlights the nav link that matches whichever section is currently
    in view, so visitors always know where they are on the page. */
 function initializeActiveNavHighlighting() {

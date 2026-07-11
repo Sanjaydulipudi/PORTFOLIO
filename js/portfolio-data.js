@@ -64,7 +64,7 @@ const portfolioData = {
        chip instead of a photo. To use a real photo:
          1. Add your image to the images/ folder, e.g. images/profile.jpg
          2. Change the line below to: photo: "images/profile.jpg" */
-    photo: "NEW_PIC.jpg",
+    photo: "images/NEW_PIC.jpg",
   },
 
   /* ---------------------------------------------------------------------
