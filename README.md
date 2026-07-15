@@ -1,9 +1,10 @@
 # Laashmith Sanjay — Portfolio Website
 
-A clean, warm-white "glassmorphism" portfolio site built for a VLSI /
-digital design engineer — soft orange (signal) and circuit-green accents
-on frosted glass panels. Plain HTML, CSS and JavaScript — no build tools,
-no frameworks, nothing to install.
+A premium, minimal portfolio site built for a VLSI / digital design
+engineer — a navy and warm-beige palette with a soft gold accent,
+tying the "engineering" feel of the original circuit-board look to a
+more elegant, recruiter-facing presentation. Plain HTML, CSS and
+JavaScript — no build tools, no frameworks, nothing to install.
 
 This README is written for someone with **almost zero web development
 experience**. Read it top to bottom once, and you'll be able to update
@@ -42,10 +43,15 @@ every part of this site yourself.
 ├── index.html               → The page structure (rarely needs editing)
 ├── css/
 │   ├── variables.css         → Colors, fonts, spacing — edit this to re-theme
-│   └── style.css             → Layout & component styles (commented, numbered sections)
+│   ├── style.css             → Layout & component styles (commented, numbered sections)
+│   └── case-study.css        → Extra layout rules used only by projects/*.html pages
 ├── js/
-│   ├── portfolio-data.js     → ALL your content lives here — edit this most often
-│   └── main.js                → Reads portfolio-data.js and builds the page
+│   ├── portfolio-data.js     → ALL your homepage content lives here — edit this most often
+│   ├── main.js                → Reads portfolio-data.js and builds the homepage
+│   └── case-study.js          → Reads a project's own data and builds its case-study page
+├── projects/                  → One .html file per project's case-study page
+│   ├── fir-filter.html
+│   └── cmos-op-amp.html
 ├── assets/
 │   └── resume/                → Your résumé PDF
 ├── images/                    → Put your profile photo (or any images) here
@@ -55,6 +61,15 @@ every part of this site yourself.
 **The short version:** to change what the site *says*, edit
 `js/portfolio-data.js`. To change what the site *looks like*, edit
 `css/variables.css`. You will rarely need to touch anything else.
+
+**Project case-study pages:** each project card on the homepage can link
+to its own full page (via "View Case Study"). To add a new one, copy
+`projects/fir-filter.html`, edit only the `caseStudy` object at the
+bottom of the copy (overview, steps, gallery, results, etc.), then set
+that project's `caseStudyUrl` in `js/portfolio-data.js` to point at your
+new file. The page's layout, nav and footer are all built automatically
+by `js/case-study.js` — you never need to touch that file or the HTML
+structure above the data block.
 
 ---
 
@@ -149,7 +164,10 @@ with your updated PDF. If you rename the file, also update this line in
 resumeFile: "assets/resume/DULIPUDI_LAASHMITH_SANJAY_RESUME.pdf",
 ```
 
-Both "Download Résumé" / "Resume" buttons on the site use this one line.
+Every "View Resume" / "Resume" button on the site (navbar, hero,
+About, Contact) opens this PDF in a new tab; every "Download Resume"
+button (hero, footer) downloads it directly. All of them read from
+this one line — see `renderResumeButtons()` in `js/main.js`.
 
 ### Highlights
 
@@ -220,18 +238,31 @@ projects: [
     title: "64-Tap FIR Filter",
     subtitle: "RTL Design, Synthesis & Verification",
     period: "May – Jun 2025",
+    status: "Completed",
     description: "A digital signal processing project...",
+    highlights: [
+      "Parameterizable, synthesizable 64-tap architecture",
+      "Self-checking testbench vs. a golden reference model",
+    ],
     tags: ["Verilog", "Synopsys DC", "Verdi", "Digital Design", "DSP"],
     icon: "filter",
     link: "",
+    demoLink: "",
+    caseStudyUrl: "projects/fir-filter.html",
   },
   ...
 ],
 ```
+- `status` shows as a small pill on the card (e.g. `"Completed"`,
+  `"In Progress"`, `"Academic Project"`).
+- `highlights` is a short list (2–4 items) of scannable facts — the
+  quickest way for a recruiter to see what actually happened.
 - `tags` show as small pills under the description — list the tools/
   languages used.
-- `link` is optional. Leave it as `""` to hide the "View project" button,
-  or set it to a GitHub URL to show it.
+- `link`, `demoLink` and `caseStudyUrl` are each optional — leave any of
+  them as `""` to hide its button. `link` is your GitHub repo,
+  `demoLink` is a live/interactive demo, and `caseStudyUrl` points at
+  that project's dedicated page (see **Project case-study pages** above).
 - `icon` picks a small icon for the card. Available icons: `"filter"`
   and `"opamp"`. To add more icons, see the `ICONS` object near the top
   of `js/main.js` and add a new entry following the same pattern (an SVG
@@ -298,10 +329,15 @@ if you also add/remove the matching section in `index.html`.
 
 Open **`css/variables.css`**. Everything is grouped and commented:
 
-- **Colors** — 6 main values control the whole palette (background,
-  two accent colors, and three text tones). Change `--color-accent` to
-  swap the signal-orange color; change `--color-accent-2` to swap the
-  circuit-green color.
+- **Colors** — the site uses a "Navy / Beige / Gold" palette: `--color-navy`
+  (hero, navbar, headings, footer), `--color-beige` / `--color-beige-soft`
+  (page background), and `--color-gold` (CTAs, links, hover states,
+  borders). A muted `--color-green` is used sparingly for the hero chip
+  frame and status pills. Change any of these three main values and the
+  rest of the site — cards, buttons, hovers — updates automatically,
+  since everything else (tints, text-on-navy colors, glass surfaces) is
+  derived from them. `--color-accent` / `--color-accent-2` still exist
+  as aliases pointing at gold/green, so older rules keep working.
 - **Fonts** — three font "roles" (`--font-display`, `--font-body`,
   `--font-mono`). To use different Google Fonts, swap the font names
   here *and* update the `<link href="https://fonts.googleapis.com/...">`

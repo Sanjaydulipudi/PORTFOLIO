@@ -64,7 +64,7 @@ const portfolioData = {
        chip instead of a photo. To use a real photo:
          1. Add your image to the images/ folder, e.g. images/profile.jpg
          2. Change the line below to: photo: "images/profile.jpg" */
-    photo: "images/NEW_PIC.jpg",
+    photo: "images/STILL_PIC_1.jpg",
   },
 
   /* ---------------------------------------------------------------------
@@ -175,21 +175,46 @@ const portfolioData = {
       title: "64-Tap FIR Filter",
       subtitle: "RTL Design, Synthesis & Verification",
       period: "May – Jun 2025",
+      /* Shown as a small colored pill on the card — use whatever status
+         fits: "Completed", "In Progress", "Academic Project", etc. */
+      status: "Completed",
       description:
         "A digital signal processing project implementing a modular, parameterizable 64-tap FIR filter in Verilog RTL using custom multipliers and adders for high throughput. Synthesized to a gate-level netlist in Synopsys Design Compiler under timing constraints, verified with a self-checking testbench against a golden reference model, and debugged through waveform analysis in Synopsys Verdi.",
+      /* 2-4 short bullet facts — the fastest way for a recruiter to
+         scan what actually happened in the project. */
+      highlights: [
+        "Parameterizable, synthesizable 64-tap architecture",
+        "Self-checking testbench vs. a golden reference model",
+        "Met timing under Design Compiler constraints",
+      ],
       tags: ["Verilog", "Synopsys DC", "Verdi", "Digital Design", "DSP"],
       icon: "filter",
+      /* Public source code, if any. Leave "" to hide the button. */
       link: "",
+      /* Live/interactive demo, if any (e.g. a simulator or waveform
+         viewer hosted elsewhere). Leave "" to hide the button. */
+      demoLink: "",
+      /* Path to this project's dedicated case-study page. Leave "" to
+         hide the "View Case Study" button and keep the card summary-only. */
+      caseStudyUrl: "projects/fir-filter.html",
     },
     {
       title: "Two-Stage CMOS Op-Amp",
       subtitle: "Analog & Layout Design",
       period: "May – Jun 2025",
+      status: "Completed",
       description:
         "A two-stage CMOS operational amplifier built in Cadence Virtuoso with a differential input stage, current-mirror load and a common-source stage with Miller compensation for high gain and stability. Verified gain, bandwidth, slew rate and phase margin through AC, DC and transient simulations, then carried the design through layout and post-layout simulation, resolving all DRC and LVS violations.",
+      highlights: [
+        "Two-stage topology with Miller compensation",
+        "AC / DC / transient verification of gain, BW, slew rate",
+        "Clean layout — zero outstanding DRC / LVS violations",
+      ],
       tags: ["Cadence Virtuoso", "Analog IC", "DRC / LVS", "Layout Design"],
       icon: "opamp",
       link: "",
+      demoLink: "",
+      caseStudyUrl: "projects/cmos-op-amp.html",
     },
   ],
 

@@ -11,43 +11,79 @@
 :root {
 
   /* ----------------------------------------------------------------------
-     1. COLORS
-     A warm, light "circuit board" palette: a soft paper-white base, a
-     signal-orange accent (used sparingly — CTAs and highlights) and a
-     circuit-green secondary accent (tags, hovers, trace lines). Two soft
-     gradient blobs of these colors sit behind the page so the glass
-     panels have real color to catch and refract — glassmorphism looks
-     flat on plain white without that.
-     Change these values to re-theme the entire site.
+     1. COLORS — "Navy / Beige / Gold" premium engineering palette.
+     Three named brand colors, each with one clear job:
+       - Navy  → hero, navbar, headings, cards, footer, section titles
+       - Beige → page background, alternate sections, secondary surfaces
+       - Gold  → CTAs, links, icons, hover/active states, borders, badges
+     Everything else below (tints, text tones, glass surfaces) is derived
+     from these three so the palette always stays coherent if you change
+     one of them.
   ---------------------------------------------------------------------- */
-  --color-bg: #faf9f6;              /* page background — warm paper white */
-  --color-bg-alt: #f3f1ea;          /* alternating section background */
-  --color-bg-elevated: #ffffff;     /* raised panels, header when scrolled */
+  --color-navy: #1F2A44;            /* primary — deep engineering navy */
+  --color-navy-rgb: 31, 42, 68;
+  --color-navy-light: #2B3A5C;      /* one step lighter — raised navy surfaces */
+  --color-navy-deep: #141B2E;       /* one step darker — footer, hero base */
 
-  --color-accent: #ff7a33;          /* primary accent — "signal" orange */
-  --color-accent-rgb: 255, 122, 51;
-  --color-accent-2: #1f9d6b;        /* secondary accent — "circuit" green */
-  --color-accent-2-rgb: 31, 157, 107;
+  --color-beige: #E8DCC8;           /* secondary — warm beige background */
+  --color-beige-rgb: 232, 220, 200;
+  --color-beige-soft: #F3ECDF;      /* page background (lighter than the card beige) */
+  --color-beige-deep: #DCCDB2;      /* dividers, pressed states on beige */
 
-  --color-ink: #14201c;             /* near-black used on top of accent fills */
-  --color-text: #16211c;            /* primary text */
-  --color-text-muted: #52605a;      /* secondary / supporting text */
-  --color-text-faint: #8b978f;      /* captions, timestamps, fine print */
+  --color-gold: #C6A75E;            /* accent — soft gold */
+  --color-gold-rgb: 198, 167, 94;
+  --color-gold-light: #D9C08A;      /* gold hover / lighter tint */
+  --color-gold-deep: #A4813F;       /* gold active / darker tint, small text on beige */
 
-  /* Glassmorphism surfaces: translucent white layered over the warm
-     background and its color blobs, so panels stay legible but still
-     let the color underneath bleed through. */
-  --color-glass-fill: rgba(255, 255, 255, 0.5);
-  --color-glass-fill-hover: rgba(255, 255, 255, 0.72);
-  --color-glass-border: rgba(20, 32, 28, 0.09);
-  --color-glass-border-strong: rgba(20, 32, 28, 0.18);
+  /* Quiet tertiary accent — used only for the hero chip frame and status
+     pills, as a muted "circuit" green sitting alongside the gold, never
+     competing with it. */
+  --color-green: #5C7A68;
+  --color-green-rgb: 92, 122, 104;
 
-  --color-header-bg: rgba(250, 249, 246, 0.75);
-  --color-mobile-nav-bg: rgba(255, 255, 255, 0.96);
+  --color-bg: var(--color-beige-soft);        /* page background — warm beige */
+  --color-bg-alt: var(--color-beige);         /* alternating section background */
+  --color-bg-elevated: #FFFFFF;               /* rare pure-white surface (form fields) */
+
+  --color-ink: #14192B;              /* near-black navy, text on gold fills */
+  --color-text: var(--color-navy);   /* primary text on beige backgrounds */
+  --color-text-muted: #545F72;       /* secondary / supporting text on beige */
+  --color-text-faint: #8891A0;       /* captions, timestamps, fine print */
+
+  /* Text tones for use on navy backgrounds (hero, footer, dark cards) */
+  --color-text-on-navy: #F4EEE1;         /* warm off-white / beige-tinted */
+  --color-text-on-navy-muted: #B9C0D2;   /* muted supporting text on navy */
+
+  /* Glassmorphism-style surfaces, now tinted navy/gold instead of neutral
+     white, so panels read as part of the same premium system on both the
+     beige and navy backgrounds. */
+  --color-glass-fill: rgba(255, 255, 255, 0.55);
+  --color-glass-fill-hover: rgba(255, 255, 255, 0.78);
+  --color-glass-border: rgba(31, 42, 68, 0.10);
+  --color-glass-border-strong: rgba(31, 42, 68, 0.20);
+
+  /* Equivalent surfaces for panels sitting on top of the navy hero */
+  --color-glass-fill-dark: rgba(244, 238, 225, 0.06);
+  --color-glass-fill-dark-hover: rgba(244, 238, 225, 0.12);
+  --color-glass-border-dark: rgba(244, 238, 225, 0.16);
+  --color-glass-border-dark-strong: rgba(198, 167, 94, 0.45);
+
+  --color-header-bg: rgba(31, 42, 68, 0.85);
+  --color-mobile-nav-bg: rgba(31, 42, 68, 0.97);
+
+  /* Backwards-compatible aliases: older rules in style.css / case-study.css
+     reference --color-accent and --color-accent-2 by name. Pointing them
+     at the new gold/green tokens means every existing rule automatically
+     re-themes to the new palette without needing to be rewritten. */
+  --color-accent: var(--color-gold);
+  --color-accent-rgb: var(--color-gold-rgb);
+  --color-accent-2: var(--color-green);
+  --color-accent-2-rgb: var(--color-green-rgb);
 
   /* ----------------------------------------------------------------------
      2. FONTS
-     - Display: headings & the hero name (Sora — geometric, technical)
+     - Display: headings & the hero name (Sora — geometric, technical,
+       used at its heaviest weight for the name so it carries the page)
      - Body: paragraphs, nav links, buttons (Inter — readable at small sizes)
      - Mono: labels, dates, tags (JetBrains Mono — schematic / datasheet feel)
   ---------------------------------------------------------------------- */
@@ -82,13 +118,15 @@
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
+  --radius-btn: 14px;
   --radius-pill: 999px;
 
   --blur-glass: 20px;
 
-  --shadow-glass: 0 8px 32px rgba(20, 32, 28, 0.09);
-  --shadow-glow-accent: 0 0 40px rgba(var(--color-accent-rgb), 0.28);
-  --shadow-glow-accent-2: 0 0 40px rgba(var(--color-accent-2-rgb), 0.22);
+  --shadow-glass: 0 8px 32px rgba(20, 25, 43, 0.10);
+  --shadow-glass-dark: 0 8px 32px rgba(0, 0, 0, 0.28);
+  --shadow-glow-gold: 0 0 40px rgba(var(--color-gold-rgb), 0.30);
+  --shadow-glow-green: 0 0 40px rgba(var(--color-green-rgb), 0.22);
 
   /* ----------------------------------------------------------------------
      5. MOTION

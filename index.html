@@ -10,7 +10,7 @@
 
   <!-- Favicon: a small inline chip glyph, no image file needed -->
   <link rel="icon"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='9' y='9' width='14' height='14' rx='2' fill='%23ff7a33'/%3E%3Crect x='13' y='2' width='2' height='6' fill='%231f9d6b'/%3E%3Crect x='17' y='2' width='2' height='6' fill='%231f9d6b'/%3E%3Crect x='13' y='24' width='2' height='6' fill='%231f9d6b'/%3E%3Crect x='17' y='24' width='2' height='6' fill='%231f9d6b'/%3E%3Crect x='2' y='13' width='6' height='2' fill='%231f9d6b'/%3E%3Crect x='2' y='17' width='6' height='2' fill='%231f9d6b'/%3E%3Crect x='24' y='13' width='6' height='2' fill='%231f9d6b'/%3E%3Crect x='24' y='17' width='6' height='2' fill='%231f9d6b'/%3E%3C/svg%3E" />
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='9' y='9' width='14' height='14' rx='2' fill='%231F2A44'/%3E%3Crect x='13' y='2' width='2' height='6' fill='%23C6A75E'/%3E%3Crect x='17' y='2' width='2' height='6' fill='%23C6A75E'/%3E%3Crect x='13' y='24' width='2' height='6' fill='%23C6A75E'/%3E%3Crect x='17' y='24' width='2' height='6' fill='%23C6A75E'/%3E%3Crect x='2' y='13' width='6' height='2' fill='%23C6A75E'/%3E%3Crect x='2' y='17' width='6' height='2' fill='%23C6A75E'/%3E%3Crect x='24' y='13' width='6' height='2' fill='%23C6A75E'/%3E%3Crect x='24' y='17' width='6' height='2' fill='%23C6A75E'/%3E%3C/svg%3E" />
 
   <!-- Fonts: Sora (headings), Inter (body), JetBrains Mono (labels/data) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,8 +19,8 @@
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet" />
 
-  <!-- Light warm-white browser chrome to match the page background -->
-  <meta name="theme-color" content="#faf9f6" />
+  <!-- Navy browser chrome to match the new hero/navbar color -->
+  <meta name="theme-color" content="#1F2A44" />
 
   <!-- Stylesheets: variables.css holds the theme, style.css holds the layout -->
   <link rel="stylesheet" href="css/variables.css" />
@@ -35,9 +35,7 @@
   <!-- ============================== HEADER / NAV Starts ============================== -->
   <header id="site-header" class="site-header">
     <div class="container site-header__inner">
-      <a href="#home" class="logo" aria-label="Back to top">
-        <span class="logo__mark" id="logo-initials">LS</span>
-      </a>
+      <div class="logo"></div>
 
       <nav class="nav" id="primary-nav" aria-label="Primary">
         <ul class="nav__list" id="nav-list"><!-- populated by main.js from portfolioData.nav --></ul>
@@ -60,8 +58,9 @@
 
     <!-- ============================== HERO Starts ============================== -->
     <section id="home" class="hero">
+
       <div class="hero__bg" aria-hidden="true">
-        <svg class="hero__traces" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+        <svg class="hero__traces" viewBox="0 0 1200 800" preserveAspectRatio="none">
           <path class="trace" d="M0,120 H300 V220 H620" />
           <path class="trace" d="M0,420 H180 V520 H520 V620 H900" />
           <path class="trace" d="M1200,80 H900 V200 H700" />
@@ -70,46 +69,112 @@
       </div>
 
       <div class="container hero__inner">
-        <div class="hero__content">
-          <p class="eyebrow"><span class="eyebrow__dot"></span><span id="hero-role">Electronics &amp; Communication
-              Engineer</span></p>
-          <h1 class="hero__name" id="hero-name">Dulipudi Laashmith Sanjay</h1>
-          <p class="hero__tagline" id="hero-tagline">From transistors to timing closure — I design and verify the
-            silicon building blocks inside tomorrow's chips.</p>
 
-          <ul class="chip-row" id="hero-highlights"><!-- populated from portfolioData.highlights --></ul>
-          <div id="hero-social-cards" class="hero-social-cards"></div>
+        <!-- ================= LEFT ================= -->
+
+        <div class="hero__content">
+
+          <div class="hero__heading">
+
+            <h1 class="hero__name" id="hero-name">
+              <span>DULIPUDI</span>
+              <span>LAASHMITH SANJAY</span>
+            </h1>
+
+            <p class="hero__role" id="hero-role">
+              Electronics & Communication Engineer
+            </p>
+
+            <p class="hero__tagline" id="hero-tagline">
+              Aspiring VLSI Design Engineer with practical experience in RTL Development, CMOS Circuit Design, Physical
+              Design and Digital Verification.
+            </p>
+
+          </div>
+
+          <!-- ================= RECENT ACHIEVEMENTS ================= -->
+
+          <div class="hero__section">
+
+            <p class="hero__section-title">
+              RECENT ACHIEVEMENTS
+            </p>
+
+            <div class="hero-achievements" id="hero-highlights">
+
+              <!-- JS renders here -->
+
+            </div>
+
+          </div>
+
+          <!-- ================= PROFESSIONAL PROFILES ================= -->
+
+          <div class="hero__section">
+
+            <p class="hero__section-title">
+              PROFESSIONAL PROFILES
+            </p>
+
+            <div id="hero-social-cards" class="hero-social-cards">
+
+            </div>
+
+          </div>
+
+          <!-- ================= RESUME CTA ================= -->
+
+          <div class="hero__section hero__resume-row">
+            <a href="#" id="hero-resume-btn" class="btn btn--primary" target="_blank">View Resume</a>
+            <a href="#" id="hero-resume-download" class="btn btn--outline" download>Download Resume</a>
+          </div>
+
         </div>
 
-        <div class="hero__visual" aria-hidden="true">
+        <!-- ================= RIGHT ================= -->
+
+        <div class="hero__visual">
+
           <div class="chip-diagram">
+
             <div class="chip-diagram__die glass-panel" id="chip-die">
-              <span class="chip-diagram__initials" id="chip-initials">LS</span>
-              <span class="chip-diagram__caption" id="chip-caption">DESIGN.V1</span>
+
             </div>
+
             <div class="chip-diagram__pins chip-diagram__pins--top"></div>
             <div class="chip-diagram__pins chip-diagram__pins--bottom"></div>
             <div class="chip-diagram__pins chip-diagram__pins--left"></div>
             <div class="chip-diagram__pins chip-diagram__pins--right"></div>
-            <ul class="chip-diagram__badges" id="chip-badges"><!-- populated from portfolioData.interests --></ul>
+
+            <ul class="chip-diagram__badges" id="chip-badges">
+            </ul>
+
           </div>
+
         </div>
+
       </div>
 
-      <a href="#about" class="scroll-cue" aria-label="Scroll to About section">
+      <a href="#about" class="scroll-cue" aria-label="Scroll">
+
         <span></span>
+
       </a>
+
     </section>
     <!-- ============================== HERO Ends ============================== -->
 
     <!-- ============================== ABOUT Starts ============================== -->
     <section id="about" class="section">
       <div class="container">
-        <p class="section-eyebrow">01 · About</p>
+        <p class="section-eyebrow">About Me</p>
         <h2 class="section-title">A quick introduction</h2>
 
         <div class="about-grid">
-          <p class="about-summary" id="about-summary"><!-- populated from portfolioData.personal.summary --></p>
+          <div>
+            <p class="about-summary" id="about-summary"><!-- populated from portfolioData.personal.summary --></p>
+            <a href="#" id="about-resume-btn" class="btn btn--outline about-resume-cta" target="_blank">View Resume</a>
+          </div>
 
           <ul class="tag-list" id="about-interests" aria-label="Areas of interest">
             <!-- populated from portfolioData.interests -->
@@ -126,7 +191,7 @@
     <!-- ============================== EXPERIENCE Starts ============================== -->
     <section id="experience" class="section section--alt">
       <div class="container">
-        <p class="section-eyebrow">02 · Background</p>
+        <p class="section-eyebrow">Background</p>
         <h2 class="section-title">Education &amp; Experience</h2>
 
         <div class="background-grid">
@@ -147,7 +212,7 @@
     <!-- ============================== PROJECTS Starts ============================== -->
     <section id="projects" class="section">
       <div class="container">
-        <p class="section-eyebrow">03 · Projects</p>
+        <p class="section-eyebrow">Selected Work</p>
         <h2 class="section-title">Selected work</h2>
 
         <div class="project-grid" id="project-grid"><!-- populated from portfolioData.projects --></div>
@@ -158,7 +223,7 @@
     <!-- ============================== SKILLS Starts ============================== -->
     <section id="skills" class="section section--alt">
       <div class="container">
-        <p class="section-eyebrow">04 · Skills</p>
+        <p class="section-eyebrow">Toolkit</p>
         <h2 class="section-title">Toolkit</h2>
 
         <div class="skills-grid" id="skills-grid"><!-- populated from portfolioData.skills --></div>
@@ -169,13 +234,16 @@
     <!-- ============================== CONTACT Starts ============================== -->
     <section id="contact" class="section">
       <div class="container">
-        <p class="section-eyebrow">05 · Contact</p>
+        <p class="section-eyebrow">Get In Touch</p>
         <h2 class="section-title">Let's talk</h2>
         <p class="section-lead">Open to VLSI, digital design and physical design roles, internships and graduate
           research opportunities. Reach out any time.</p>
 
         <div class="contact-grid">
-          <ul class="contact-cards" id="contact-cards"><!-- populated from portfolioData.personal --></ul>
+          <div>
+            <ul class="contact-cards" id="contact-cards"><!-- populated from portfolioData.personal --></ul>
+            <a href="#" id="contact-resume-btn" class="btn btn--primary contact-resume-cta" target="_blank">View Resume</a>
+          </div>
 
           <form class="contact-form glass-panel" id="contact-form">
             <p class="contact-form__hint">This opens a pre-filled email in your mail app — there's no server behind it.
@@ -209,6 +277,8 @@
         <p class="site-footer__tagline" id="footer-tagline">Electronics &amp; Communication Engineer — VLSI &amp;
           Digital Design</p>
       </div>
+
+      <a href="#" id="footer-resume-btn" class="btn btn--outline btn--small footer-resume-cta" download>Download Resume</a>
 
       <ul class="social-row" id="footer-socials" aria-label="Social links"><!-- populated by main.js --></ul>
 

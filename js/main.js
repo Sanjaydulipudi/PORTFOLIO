@@ -51,58 +51,162 @@ function renderNavigation() {
 }
 
 function renderResumeButtons() {
+
   const path = portfolioData.personal.resumeFile;
-  const fileName = path.split("/").pop();
-  document.querySelectorAll("#header-resume-btn, #hero-resume-btn").forEach((btn) => {
-    btn.setAttribute("href", path);
-    btn.setAttribute("download", fileName);
+
+  // Every "Resume" / "View Resume" button opens the PDF in a new tab
+  // rather than forcing a download.
+  ["header-resume-btn", "hero-resume-btn", "about-resume-btn", "contact-resume-btn"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.href = path;
+    el.target = "_blank";
+    el.removeAttribute("download");
   });
+
+  // "Download Resume" buttons keep the real download behavior.
+  ["hero-resume-download", "footer-resume-btn"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.href = path;
+    el.setAttribute("download", "");
+    el.removeAttribute("target");
+  });
+
+}
+
+/* Wraps each word of a name line in a ".word" span (so it can be
+   clipped with overflow:hidden) containing an inner span that actually
+   animates upward into view. Each word's animation-delay is staggered
+   a little after the last, so the name reveals word-by-word rather
+   than all at once. `startDelay` lets the second line begin slightly
+   after the first finishes. */
+function buildStaggerLine(text, startDelay) {
+  const words = text.split(" ");
+  return words
+    .map((word, i) => {
+      const delay = (startDelay + i * 0.12).toFixed(2);
+      return `<span class="word"><span style="animation-delay:${delay}s">${word}</span></span>`;
+    })
+    .join(" ");
 }
 
 function renderHero() {
 
   const p = portfolioData.personal;
 
+  document.getElementById("hero-name").innerHTML = `
+        <span>${buildStaggerLine("DULIPUDI", 0.1)}</span>
+        <span>${buildStaggerLine("LAASHMITH SANJAY", 0.34)}</span>
+    `;
+
   document.getElementById("hero-role").textContent = p.role;
 
-  const name = p.fullName.split(" ");
-
-  document.getElementById("hero-name").innerHTML = `
-    <span>${name[0].toUpperCase()}</span>
-    <span>${name.slice(1).join(" ").toUpperCase()}</span>
-  `;
-
   document.getElementById("hero-tagline").textContent = p.tagline;
-
-  document.getElementById("logo-initials").textContent = p.initials;
-  document.getElementById("chip-initials").textContent = p.initials;
-  document.getElementById("footer-initials").textContent = p.initials;
 
   renderChipPhotoOrInitials();
 
   document.getElementById("footer-tagline").textContent =
     `${p.role} — VLSI & Digital Design`;
 
-  const highlightsList = document.getElementById("hero-highlights");
+  /* ==========================================
+     RECENT ACHIEVEMENTS
+  ========================================== */
 
-  highlightsList.innerHTML = portfolioData.highlights
-    .map(
-      h => `
-      <li class="chip">
-        <span class="chip__value">${h.value}</span>
-        <span class="chip__label">${h.label}</span>
-      </li>
-    `
-    )
-    .join("");
+  const heroAchievements = document.getElementById("hero-highlights");
 
-  // Hero floating tags
-  renderChipBadges();
+  heroAchievements.innerHTML = `
 
-  // NEW Hero social cards
+<div class="hero-achievement glass-panel">
+
+    <div class="hero-achievement__icon">
+
+        📊
+
+    </div>
+
+    <div class="hero-achievement__value">
+
+        8.35 / 10
+
+    </div>
+
+    <div class="hero-achievement__label">
+
+        CGPA
+
+    </div>
+
+    <div class="hero-achievement__date">
+
+        June 2026
+
+    </div>
+
+</div>
+
+<div class="hero-achievement glass-panel">
+
+    <div class="hero-achievement__icon">
+
+        💻
+
+    </div>
+
+    <div class="hero-achievement__value">
+
+        VLSI Design Intern
+
+    </div>
+
+    <div class="hero-achievement__label">
+
+        MeitY C2S Programme
+
+    </div>
+
+    <div class="hero-achievement__date">
+
+        May 2025 — June 2025
+
+    </div>
+
+</div>
+
+<div class="hero-achievement glass-panel">
+
+    <div class="hero-achievement__icon">
+
+        🏆
+
+    </div>
+
+    <div class="hero-achievement__value">
+
+        Vice President
+
+    </div>
+
+    <div class="hero-achievement__label">
+
+        IETE Student Chapter
+
+    </div>
+
+    <div class="hero-achievement__date">
+
+        June 2024 — May 2025
+
+    </div>
+
+</div>
+
+`;
+
   renderHeroSocialCards();
 
-  // Footer icons
+  renderChipBadges();
+
   renderSocialRow("footer-socials");
 
 }
@@ -113,22 +217,36 @@ function renderHeroSocialCards() {
 
   if (!container) return;
 
-  container.innerHTML = portfolioData.socials
-    .filter(s => s.url)
-    .map(s => `
+  const socials = portfolioData.socials.filter(item =>
+    item.name === "LinkedIn" ||
+    item.name === "GitHub"
+  );
 
-<a class="hero-social-card glass-panel"
-   href="${s.url}"
-   target="_blank"
-   rel="noopener">
+  container.innerHTML = socials.map(item => `
 
-    <div class="hero-social-card__icon">
-        ${ICONS[s.icon] || ""}
-    </div>
+<a
 
-    <span class="hero-social-card__title">
-        ${s.name}
-    </span>
+class="hero-social-card glass-panel"
+
+href="${item.url}"
+
+target="_blank"
+
+rel="noopener"
+
+>
+
+<div class="hero-social-card__icon">
+
+${ICONS[item.icon]}
+
+</div>
+
+<div class="hero-social-card__title">
+
+${item.name}
+
+</div>
 
 </a>
 
@@ -141,11 +259,43 @@ function renderHeroSocialCards() {
    keeps the initials — see the comment above that field in
    portfolio-data.js for instructions. */
 function renderChipPhotoOrInitials() {
+
   const p = portfolioData.personal;
-  if (!p.photo) return;
 
   const die = document.getElementById("chip-die");
-  die.innerHTML = `<img class="chip-diagram__photo" src="${p.photo}" alt="${p.fullName}" />`;
+
+  if (!die) return;
+
+  if (p.photo) {
+
+    die.innerHTML = `
+
+<img
+
+class="chip-diagram__photo"
+
+src="${p.photo}"
+
+alt="${p.fullName}"
+
+>
+
+`;
+
+  } else {
+
+    die.innerHTML = `
+
+<div class="chip-diagram__initials">
+
+${p.initials}
+
+</div>
+
+`;
+
+  }
+
 }
 
 function renderSocialRow(containerId) {
@@ -227,28 +377,63 @@ function renderExperience() {
     .join("");
 }
 
+/* ==========================================================================
+   PROJECT CARD START
+   ==========================================================================
+   Renders one .project-card per entry in portfolioData.projects.
+   Each card shows: icon, period, status pill, title, subtitle, description,
+   a short "quick highlights" list, tech tags, then up to three actions —
+   GitHub, Live Demo, and "View Case Study" (linking to that project's own
+   page) — any of which are simply omitted if the matching data field is "".
+========================================================================== */
 function renderProjects() {
   const el = document.getElementById("project-grid");
   el.innerHTML = portfolioData.projects
     .map(
       (proj) => `
       <article class="project-card glass-panel">
-        <div class="project-card__icon">${ICONS[proj.icon] || ICONS.filter}</div>
+        <div class="project-card__top">
+          <div class="project-card__icon">${ICONS[proj.icon] || ICONS.filter}</div>
+          ${proj.status ? `<span class="project-card__status">${proj.status}</span>` : ""}
+        </div>
+
         <p class="project-card__period mono">${proj.period}</p>
         <h3 class="project-card__title">${proj.title}</h3>
         <p class="project-card__subtitle">${proj.subtitle}</p>
         <p class="project-card__desc">${proj.description}</p>
+
+        ${proj.highlights && proj.highlights.length
+          ? `<ul class="project-card__highlights">
+              ${proj.highlights.map((h) => `<li>${h}</li>`).join("")}
+            </ul>`
+          : ""
+        }
+
         <ul class="tag-list tag-list--small">
           ${proj.tags.map((t) => `<li class="tag tag--outline">${t}</li>`).join("")}
         </ul>
-        ${proj.link
-          ? `<a href="${proj.link}" class="project-card__link" target="_blank" rel="noopener">View project ${ICONS.arrow}</a>`
-          : ""
-        }
+
+        <div class="project-card__actions">
+          ${proj.caseStudyUrl
+            ? `<a href="${proj.caseStudyUrl}" class="btn btn--primary btn--small">View Case Study</a>`
+            : ""
+          }
+          ${proj.link
+            ? `<a href="${proj.link}" class="project-card__link" target="_blank" rel="noopener">${ICONS.github} GitHub</a>`
+            : ""
+          }
+          ${proj.demoLink
+            ? `<a href="${proj.demoLink}" class="project-card__link" target="_blank" rel="noopener">Live Demo ${ICONS.arrow}</a>`
+            : ""
+          }
+        </div>
       </article>`
     )
     .join("");
 }
+/* ==========================================================================
+   PROJECT CARD END
+========================================================================== */
 
 function renderSkills() {
   const el = document.getElementById("skills-grid");
@@ -319,6 +504,23 @@ function initializeMobileMenu() {
   });
 }
 
+/* A very light parallax drift on the hero's PCB-pattern background —
+   moves at a fraction of scroll speed via a CSS custom property, so it
+   reads as depth rather than motion. Capped so it never drifts far
+   enough to become a distraction. */
+function initializeHeroParallax() {
+  const bg = document.querySelector(".hero__bg");
+  if (!bg) return;
+
+  const onScroll = () => {
+    const offset = Math.min(window.scrollY * 0.08, 40);
+    bg.style.setProperty("--parallax", offset.toFixed(1));
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+}
+
 /* Adds a subtle background to the header once the page has scrolled
    past the hero, so nav text stays readable over any section. */
 function initializeHeaderScrollState() {
@@ -327,14 +529,24 @@ function initializeHeaderScrollState() {
 
   let lastScroll = 0;
 
-  window.addEventListener("scroll", () => {
+  const onScroll = () => {
 
-    const current = window.pageYOffset;
+    const current = window.scrollY;
 
     header.classList.toggle(
       "site-header--scrolled",
       current > 40
     );
+
+    if (current <= 20) {
+
+      header.classList.remove("site-header--hidden");
+
+      lastScroll = current;
+
+      return;
+
+    }
 
     if (current > lastScroll && current > 120) {
 
@@ -348,7 +560,11 @@ function initializeHeaderScrollState() {
 
     lastScroll = current;
 
-  }, { passive: true });
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  onScroll();
 
 }
 
@@ -461,6 +677,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initializeMobileMenu();
   initializeHeaderScrollState();
+  initializeHeroParallax();
   initializeScrollReveal();
   initializeActiveNavHighlighting();
   initializeContactForm();

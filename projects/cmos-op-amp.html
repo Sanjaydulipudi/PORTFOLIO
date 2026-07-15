@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Two-Stage CMOS Op-Amp — Case Study — Laashmith Sanjay</title>
+  <meta name="description"
+    content="Case study: a two-stage CMOS operational amplifier — analog design, simulation and layout in Cadence Virtuoso." />
+
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='9' y='9' width='14' height='14' rx='2' fill='%231F2A44'/%3E%3Crect x='13' y='2' width='2' height='6' fill='%23C6A75E'/%3E%3Crect x='17' y='2' width='2' height='6' fill='%23C6A75E'/%3E%3Crect x='13' y='24' width='2' height='6' fill='%23C6A75E'/%3E%3Crect x='17' y='24' width='2' height='6' fill='%23C6A75E'/%3E%3Crect x='2' y='13' width='6' height='2' fill='%23C6A75E'/%3E%3Crect x='2' y='17' width='6' height='2' fill='%23C6A75E'/%3E%3Crect x='24' y='13' width='6' height='2' fill='%23C6A75E'/%3E%3Crect x='24' y='17' width='6' height='2' fill='%23C6A75E'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <meta name="theme-color" content="#1F2A44" />
+
+  <!-- Same stylesheets as the homepage, plus case-study.css for the
+       sections that only exist on project pages. -->
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/case-study.css" />
+</head>
+
+<body id="page-top">
+
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- ============================== HEADER / NAV Starts ============================== -->
+  <header id="site-header" class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="../index.html" aria-label="Home"></a>
+
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <ul class="nav__list" id="nav-list"><!-- populated by case-study.js from portfolioData.nav --></ul>
+      </nav>
+
+      <div class="site-header__actions">
+        <a href="#" id="header-resume-btn" class="btn btn--ghost btn--small" target="_blank">Resume</a>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false"
+          aria-controls="primary-nav">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- ============================== HEADER / NAV Ends ============================== -->
+
+  <main id="main-content">
+
+    <div class="container cs-back-bar">
+      <a href="../index.html#projects" class="cs-back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>
+        Back to all projects
+      </a>
+    </div>
+
+    <!-- ============================== CASE STUDY HERO Starts ============================== -->
+    <section class="cs-hero">
+      <div class="container">
+        <span class="cs-hero__status" id="cs-status"></span>
+        <h1 class="cs-hero__title" id="cs-title"></h1>
+        <p class="cs-hero__subtitle" id="cs-subtitle"></p>
+        <p class="cs-hero__summary" id="cs-summary"></p>
+        <div class="cs-hero__actions" id="cs-actions"><!-- GitHub / Live Demo / Report, from case-study.js --></div>
+
+        <div class="cs-hero__banner glass-panel" id="cs-banner"><!-- banner image or placeholder --></div>
+      </div>
+    </section>
+    <!-- ============================== CASE STUDY HERO Ends ============================== -->
+
+    <div class="container">
+
+      <!-- ============================== META Starts ============================== -->
+      <div class="cs-meta glass-panel" id="cs-meta"></div>
+      <!-- ============================== META Ends ============================== -->
+
+      <!-- ============================== OVERVIEW Starts ============================== -->
+      <section class="cs-section">
+        <h2 class="cs-section__title">Overview</h2>
+        <p class="cs-section__body" id="cs-overview"></p>
+      </section>
+      <!-- ============================== OVERVIEW Ends ============================== -->
+
+      <!-- ============================== PROBLEM / OBJECTIVE Starts ============================== -->
+      <section class="cs-section">
+        <div class="cs-two-col">
+          <div>
+            <h2 class="cs-section__title">Problem Statement</h2>
+            <p class="cs-section__body" id="cs-problem"></p>
+          </div>
+          <div>
+            <h2 class="cs-section__title">Objective</h2>
+            <p class="cs-section__body" id="cs-objective"></p>
+          </div>
+        </div>
+      </section>
+      <!-- ============================== PROBLEM / OBJECTIVE Ends ============================== -->
+
+      <!-- ============================== ARCHITECTURE / WORKFLOW Starts ============================== -->
+      <section class="cs-section">
+        <div class="cs-two-col">
+          <div>
+            <h2 class="cs-section__title">Architecture</h2>
+            <p class="cs-section__body" id="cs-architecture"></p>
+          </div>
+          <div>
+            <h2 class="cs-section__title">Workflow</h2>
+            <p class="cs-section__body" id="cs-workflow"></p>
+          </div>
+        </div>
+      </section>
+      <!-- ============================== ARCHITECTURE / WORKFLOW Ends ============================== -->
+
+      <!-- ============================== IMPLEMENTATION STEPS Starts ============================== -->
+      <section class="cs-section">
+        <h2 class="cs-section__title">Step-by-Step Implementation</h2>
+        <div class="cs-steps" id="cs-steps"></div>
+      </section>
+      <!-- ============================== IMPLEMENTATION STEPS Ends ============================== -->
+
+      <!-- ============================== MEDIA GALLERY Starts ============================== -->
+      <section class="cs-section">
+        <h2 class="cs-section__title">Simulation, Waveforms &amp; Screenshots</h2>
+        <p class="cs-section__body" style="margin-bottom: var(--space-md);">RTL simulation results, waveform
+          captures and synthesis reports. Add new screenshots any time by editing the <code>gallery</code> array
+          below — no other file needs to change.</p>
+        <div class="cs-gallery" id="cs-gallery"></div>
+      </section>
+      <!-- ============================== MEDIA GALLERY Ends ============================== -->
+
+      <!-- ============================== RESULTS Starts ============================== -->
+      <section class="cs-section">
+        <h2 class="cs-section__title">Results</h2>
+        <div class="cs-result-cards" id="cs-results"></div>
+      </section>
+      <!-- ============================== RESULTS Ends ============================== -->
+
+      <!-- ============================== CHALLENGES / LEARNINGS Starts ============================== -->
+      <section class="cs-section">
+        <div class="cs-two-col">
+          <div>
+            <h2 class="cs-section__title">Challenges</h2>
+            <ul class="cs-list" id="cs-challenges"></ul>
+          </div>
+          <div>
+            <h2 class="cs-section__title">Learnings</h2>
+            <ul class="cs-list" id="cs-learnings"></ul>
+          </div>
+        </div>
+      </section>
+      <!-- ============================== CHALLENGES / LEARNINGS Ends ============================== -->
+
+      <!-- ============================== FUTURE IMPROVEMENTS Starts ============================== -->
+      <section class="cs-section">
+        <h2 class="cs-section__title">Future Improvements</h2>
+        <ul class="cs-list" id="cs-future"></ul>
+      </section>
+      <!-- ============================== FUTURE IMPROVEMENTS Ends ============================== -->
+
+      <!-- ============================== REFERENCES Starts ============================== -->
+      <section class="cs-section">
+        <h2 class="cs-section__title">References</h2>
+        <ul class="cs-references" id="cs-references"></ul>
+      </section>
+      <!-- ============================== REFERENCES Ends ============================== -->
+
+      <!-- ============================== NEXT PROJECT Starts ============================== -->
+      <a class="cs-next glass-panel" id="cs-next" href="#">
+        <div>
+          <p class="cs-next__label">Next Project</p>
+          <p class="cs-next__title"></p>
+        </div>
+        <span>→</span>
+      </a>
+      <!-- ============================== NEXT PROJECT Ends ============================== -->
+
+    </div>
+
+  </main>
+
+  <!-- ============================== FOOTER Starts ============================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div>
+        <span class="logo__mark logo__mark--small" id="footer-initials">LS</span>
+        <p class="site-footer__tagline" id="footer-tagline"></p>
+      </div>
+
+      <ul class="social-row" id="footer-socials" aria-label="Social links"></ul>
+
+      <p class="site-footer__meta">
+        <span id="footer-year"></span> · Built with HTML, CSS &amp; JavaScript
+      </p>
+    </div>
+
+    <a href="#page-top" class="back-to-top" aria-label="Back to top">↑</a>
+  </footer>
+  <!-- ============================== FOOTER Ends ============================== -->
+
+  <script src="../js/portfolio-data.js"></script>
+  <script src="../js/case-study.js"></script>
+
+  <!-- ============================================================================
+       CASE STUDY DATA
+       ============================================================================
+       Everything specific to THIS project lives here. To create another
+       project page: copy this whole file, edit only this object (and the
+       page <title> above), then point that project's "caseStudyUrl" in
+       js/portfolio-data.js at the new file.
+  ============================================================================ -->
+  <script>
+    window.caseStudy = {
+      title: "Two-Stage CMOS Op-Amp",
+      subtitle: "Analog & Layout Design",
+      status: "Completed",
+
+      summary:
+        "A two-stage CMOS operational amplifier designed in Cadence Virtuoso — from transistor-level schematic through simulation to a DRC/LVS-clean layout.",
+
+      /* Set to an image path (e.g. "../images/opamp-banner.png") once
+         you have one — until then a clean placeholder is shown instead. */
+      banner: "",
+
+      meta: [
+        { label: "Timeline", value: "May – Jun 2025" },
+        { label: "Role", value: "Analog & Layout Design" },
+        { label: "Domain", value: "Analog IC Design" },
+        { label: "Tools", value: "Cadence Virtuoso" },
+      ],
+
+      overview:
+        "This project designs a two-stage CMOS operational amplifier: a differential input stage feeding a common-source gain stage, compensated with a Miller capacitor for stability. The design was simulated at the schematic level, then carried through physical layout with post-layout re-verification.",
+
+      problem:
+        "A single-stage amplifier trades off gain against output swing and struggles to hit high gain with a wide bandwidth on a fixed process. A two-stage architecture requires additional frequency compensation to remain stable once layout parasitics are introduced.",
+
+      objective:
+        "Design a two-stage CMOS op-amp that (1) meets target gain, bandwidth, slew rate and phase margin specifications in schematic simulation, and (2) produces a DRC/LVS-clean layout whose post-layout performance still meets those specs.",
+
+      architecture:
+        "A differential pair with a current-mirror active load forms the first (high-gain) stage, followed by a common-source second stage for additional gain and output swing. A Miller capacitor between the two stages provides frequency compensation for closed-loop stability.",
+
+      workflow:
+        "Schematic entry and sizing in Cadence Virtuoso, AC/DC/transient simulation for spec verification, then physical layout with DRC and LVS checks, followed by post-layout simulation to confirm parasitics hadn't broken the design.",
+
+      steps: [
+        {
+          title: "Topology selection & hand calculations",
+          desc: "Chose the two-stage, Miller-compensated topology and hand-calculated approximate device sizing to hit the target gain and phase margin.",
+        },
+        {
+          title: "Schematic entry & sizing",
+          desc: "Built the schematic in Cadence Virtuoso and iteratively sized the differential pair, current mirrors and compensation capacitor.",
+        },
+        {
+          title: "DC & AC simulation",
+          desc: "Verified DC operating points and extracted open-loop gain, unity-gain bandwidth and phase margin from AC analysis.",
+        },
+        {
+          title: "Transient & slew-rate verification",
+          desc: "Applied step and pulse inputs to measure slew rate and settling behavior under large-signal conditions.",
+        },
+        {
+          title: "Physical layout",
+          desc: "Floorplanned and laid out the transistors with attention to matching (common-centroid where needed) and symmetry for the differential pair.",
+        },
+        {
+          title: "DRC / LVS & post-layout simulation",
+          desc: "Resolved all design-rule and layout-versus-schematic violations, extracted parasitics, and re-ran simulations to confirm the layout still met spec.",
+        },
+      ],
+
+      /* MEDIA GALLERY START — add screenshots here as you take them.
+         Leave "src" as "" to show a labeled placeholder until you do. */
+      gallery: [
+        { category: "Schematic", caption: "Two-stage op-amp schematic", src: "" },
+        { category: "Simulation", caption: "AC analysis — gain & phase margin plot", src: "" },
+        { category: "Simulation", caption: "Transient response — slew rate measurement", src: "" },
+        { category: "Layout", caption: "Final layout — DRC/LVS clean", src: "" },
+      ],
+      /* MEDIA GALLERY END */
+
+      results: [
+        { value: "2-stage", label: "Miller-compensated topology" },
+        { value: "0", label: "Outstanding DRC / LVS violations" },
+        { value: "✓", label: "Gain, BW, slew rate & phase margin met" },
+      ],
+
+      challenges: [
+        "Keeping phase margin adequate once the Miller compensation was sized for a real load, not just an idealized one.",
+        "Preserving differential-pair matching in layout while still meeting area and routing constraints.",
+      ],
+
+      learnings: [
+        "How second-stage loading and compensation capacitor sizing directly trade off against bandwidth and stability.",
+        "Why post-layout re-simulation matters — parasitics shifted the margins enough to be worth catching before tape-out mentality.",
+      ],
+
+      future: [
+        "Characterize PVT (process/voltage/temperature) corners rather than a single nominal simulation.",
+        "Explore a folded-cascode alternative for comparison on gain and bandwidth.",
+        "Add a common-mode feedback network for a fully differential variant.",
+      ],
+
+      references: [
+        { label: "Cadence Virtuoso design environment", url: "https://www.cadence.com/en_US/home/tools/custom-ic-analog-rf-design/circuit-design/virtuoso-schematic-editor.html" },
+      ],
+
+      /* Path to a PDF report for this specific project, if you have one.
+         Leave "" to hide the button. */
+      reportPdf: "",
+      github: "",
+      demo: "",
+
+      nextProject: {
+        title: "64-Tap FIR Filter",
+        url: "fir-filter.html",
+      },
+    };
+  </script>
+</body>
+
+</html>
